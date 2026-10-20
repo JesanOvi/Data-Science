@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flask Website</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Welcome to My Website!</h1>
+    <p>This webpage is created using HTML and Flask.</p>
+
+    <h2>What I am learning</h2>
+    <ul>
+        <li>Flask routing</li>
+        <li>HTML</li>
+        <li>Python integration</li>
+    </ul>
+
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/about">About</a> |
+        <a href="/contact">Contact</a>
+        <a href="/greet">Greet</a>
+    </nav>
+
+    <button>Click Me</button>
+</body>
+</html>

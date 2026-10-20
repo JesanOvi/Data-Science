@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Greeting App</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Greeting Application</h1>
+
+    <form action="/greet" method="POST">
+        <label for="student_name">Enter your name:</label>
+        <input
+            type="text"
+            id="student_name"
+            name="student_name"
+            required
+        >
+
+        <br><br>
+
+        <label for="student_id">Enter your student ID:</label>
+        <input
+            type="text"
+            id="student_id"
+            name="student_id"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

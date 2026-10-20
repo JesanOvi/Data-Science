@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Classifier</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+
+        h1, h2 {
+            color: #263b5e;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 22px;
+            padding: 12px 20px;
+            background: #2457a7;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .result {
+            background: white;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 8px;
+        }
+
+        .error {
+            color: #b42318;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Wine Classification</h1>
+
+    <p>
+        Enter the 13 measurements below to predict the wine class
+        using our trained PyTorch ANN.
+    </p>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form action="/predict" method="POST">
+
+        <div class="form-grid">
+
+            {% for feature in feature_names %}
+                <div class="field">
+
+                    <label for="feature_{{ loop.index0 }}">
+                        {{ feature | replace("_", " ") | title }}
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="feature_{{ loop.index0 }}"
+                        name="feature_{{ loop.index0 }}"
+                        value="{{ user_values.get('feature_' ~ loop.index0, '') if user_values is mapping else '' }}"
+                        required
+                    >
+
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <button type="submit">Predict Wine Class</button>
+
+    </form>
+
+
+    {% if prediction is defined %}
+
+        <div class="result">
+
+            <h2>Prediction Result</h2>
+
+            <p>
+                <strong>Predicted class:</strong>
+                {{ prediction }}
+            </p>
+
+            <h3>Class probabilities</h3>
+
+            {% for item in probabilities %}
+                <p>
+                    {{ item.name }}:
+                    {{ item.probability }}%
+                </p>
+            {% endfor %}
+
+            <p>
+                These are the model's estimated class probabilities,
+                not a guarantee of correctness.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</body>
+</html>
