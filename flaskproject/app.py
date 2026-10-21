@@ -17,6 +17,10 @@ app = Flask(__name__)
 # def contact():
 #     return "Contact page"
 
+
+
+
+
 @app.route("/")
 def home():
     return render_template("home.html")
